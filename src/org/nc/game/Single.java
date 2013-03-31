@@ -26,7 +26,7 @@ public class Single extends Game {
 	String[] abcd = new String[1];
 	float a, b, c, d;
 	Rectangle rect;
-	
+
 	public Single(GameContainer launch, Input input) {
 		this.gc = launch;
 		this.input = input;
@@ -85,7 +85,7 @@ public class Single extends Game {
 
 	@Override
 	public void update() {
-//		System.out.println(mouseX() + ", "+ mouseY());
+		// System.out.println(mouseX() + ", "+ mouseY());
 		for (int i = 0; i < CB.size(); i++) {
 			if (CB.get(i).intersects(player.player)) {
 				player.VY = 0;
