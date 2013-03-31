@@ -1,6 +1,7 @@
 package org.nc.game;
 
 import java.awt.Rectangle;
+import java.util.ArrayList;
 
 import org.nc.engine.Game;
 import org.nc.engine.GameContainer;
@@ -12,24 +13,14 @@ public class PlayerEntity {
 	GameContainer gc;
 	float squareX;
 	float squareY;
-	// = 248
 	float VX = 0;
 	float VY = 0;
 	int movement = -1;
-	boolean isColliding;
+	ArrayList<Boolean> isColliding = new ArrayList<Boolean>();
+//	boolean[] isColliding;
 	boolean jumping;
-	boolean isJumping;
 
 	Rectangle player = new Rectangle(0, 0, 50, 50);
-
-	public PlayerEntity() {
-	}
-
-	public void init() {
-
-	}
-	
-	int i;
 
 	public void update(Game game) {
 		if (movement == 0) {
@@ -39,27 +30,15 @@ public class PlayerEntity {
 		} else {
 			VX = 0;
 		}
-
-		if (jumping) {
-			if (i < 50) {
-				System.out.println(i);
-				i++;
-				if (isColliding) {
-					VY =- 100f;
-					isJumping = true;
-				}
-				if (isJumping) {
-					VY =- 20f;
-				}
-			}
-			if (i >= 50) {
-				i = 0;
+		
+		if (isColliding.contains(true)) {
+			if (jumping) {
+				squareY -= 50;
 				jumping = false;
-				isJumping = false;
 			}
+		} else {
+			VY += 0.01f * game.delta();
 		}
-		 
-
 		player.setBounds((int) squareX, (int) squareY, 50, 50);
 		squareX += VX;
 		squareY += VY;

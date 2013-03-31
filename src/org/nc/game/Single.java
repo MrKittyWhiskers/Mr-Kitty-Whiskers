@@ -18,8 +18,6 @@ public class Single extends Game {
 	GameContainer gc;
 	Input input;
 	public static PlayerEntity player = new PlayerEntity();
-	Rectangle floor = new Rectangle(0, 298, 900, 333);
-	Rectangle obs1 = new Rectangle(309, 261, 62, 38);
 	ArrayList<Rectangle> CB = new ArrayList<Rectangle>();
 	BufferedReader reader;
 	String line;
@@ -28,7 +26,7 @@ public class Single extends Game {
 	String[] abcd = new String[1];
 	float a, b, c, d;
 	Rectangle rect;
-
+	
 	public Single(GameContainer launch, Input input) {
 		this.gc = launch;
 		this.input = input;
@@ -62,7 +60,7 @@ public class Single extends Game {
 	public void setVar() {
 		try {
 			reader.close();
-			reader = new BufferedReader(new FileReader(System.getenv("APPDATA") + "//.game//coords.txt"));
+			reader = new BufferedReader(new FileReader("res/coords.txt"));
 			for (int i = 0; i <= lines; i++) {
 				String line = reader.readLine().trim();
 				abcd = line.split(" ");
@@ -82,24 +80,24 @@ public class Single extends Game {
 	public void init() {
 		stateName = "Play";
 		gc.setTitle("Nuclear Kittens | Singleplayer");
-		CB.add(floor);
-		CB.add(obs1);
+		setVar();
 	}
 
 	@Override
 	public void update() {
+//		System.out.println(mouseX() + ", "+ mouseY());
 		for (int i = 0; i < CB.size(); i++) {
 			if (CB.get(i).intersects(player.player)) {
 				player.VY = 0;
 				player.squareY = CB.get(i).y - 49;
-				player.isColliding = true;
+				player.isColliding.add(true);
 			} else {
-				player.isColliding = false;
-				player.VY += 0.01f * delta();
+				player.isColliding.add(false);
 			}
+			System.out.println(player.isColliding);
 		}
 		player.update(this);
-		System.out.println(player.isColliding);
+		player.isColliding.clear();
 	}
 
 	@Override
