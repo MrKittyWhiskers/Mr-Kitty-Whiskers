@@ -23,7 +23,7 @@ public class Control extends Input {
 
 	@Override
 	public void keyRelease(KeyEvent e, Game game) {
-		if ((e.getKeyCode() == 68)||(e.getKeyCode() == 65)) {
+		if ((e.getKeyCode() == 68) || (e.getKeyCode() == 65)) {
 			Single.player.movement = -1;
 		}
 	}

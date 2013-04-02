@@ -2,7 +2,6 @@ package org.nc.game;
 
 import java.awt.Rectangle;
 import java.util.ArrayList;
-
 import org.nc.engine.Game;
 import org.nc.engine.GameContainer;
 import org.nc.engine.Graphics;
@@ -17,9 +16,7 @@ public class PlayerEntity {
 	float VY = 0;
 	int movement = -1;
 	ArrayList<Boolean> isColliding = new ArrayList<Boolean>();
-//	boolean[] isColliding;
 	boolean jumping;
-
 	Rectangle player = new Rectangle(0, 0, 50, 50);
 
 	public void update(Game game) {
@@ -43,7 +40,7 @@ public class PlayerEntity {
 		squareX += VX;
 		squareY += VY;
 	}
-
+	
 	public void render(Graphics g) {
 		new Sprite();
 		g.drawImage(Sprite.getSprite("res/textures.png", 1, 50, 50), squareX, squareY);

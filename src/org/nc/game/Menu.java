@@ -10,7 +10,7 @@ import org.nc.engine.*;
 public class Menu extends Game {
 
 	GameContainer gc;
-	
+
 	Input input;
 	Font font;
 	Font version;
@@ -33,43 +33,31 @@ public class Menu extends Game {
 		gc.isDebugVis = false;
 		gc.setTitle("Nuclear Kittens | Alpha 0.0.1");
 		gc.setSize(900, 600);
-		single = new Button(width / 2 - 125, 100, this, input, "Singleplayer");
-		multi = new Button(width / 2 - 125, 200, this, input, "Multiplayer");
-		options = new Button(width / 2 - 125, 300, this, input, "Options");
-		credits = new Button(width / 2 - 125, 400, this, input, "Credits");
+		single = new Button("res/button.png", width / 2 - 125, 100, this, input, "Singleplayer");
+		multi = new Button("res/button.png", width / 2 - 125, 200, this, input, "Multiplayer");
+		options = new Button("res/button.png", width / 2 - 125, 300, this, input, "Options");
+		credits = new Button("res/button.png", width / 2 - 125, 400, this, input, "Credits");
 		font = new Font("OCR A Extended", Font.PLAIN, 40);
 		version = new Font("Arial", Font.PLAIN, 20);
 	}
 
 	@Override
 	public void update() {
-		try {
-			if (single.isClicked()) {
-				gc.enterState(new Single(gc, input), input);
-				System.out.println("Singleplayer");
-			}
-		} catch (NullPointerException npe) {
+		if (single.isClicked()) {
+			gc.enterState(new Single(gc, input), input);
+			System.out.println("Singleplayer");
 		}
-		try {
-			if (multi.isClicked()) {
-				gc.enterState(new Multi(gc, input), input);
-				System.out.println("Multiplayer");
-			}
-		} catch (NullPointerException npe) {
+		if (multi.isClicked()) {
+			gc.enterState(new Multi(gc, input), input);
+			System.out.println("Multiplayer");
 		}
-		try {
-			if (options.isClicked()) {
-				gc.enterState(new Options(gc, input), input);
-				System.out.println("Options");
-			}
-		} catch (NullPointerException npe) {
+		if (options.isClicked()) {
+			gc.enterState(new Options(gc, input), input);
+			System.out.println("Options");
 		}
-		try {
-			if (credits.isClicked()) {
-				gc.enterState(new Credits(gc, input), input);
-				System.out.println("Credits");
-			}
-		} catch (NullPointerException npe) {
+		if (credits.isClicked()) {
+			gc.enterState(new Credits(gc, input), input);
+			System.out.println("Credits");
 		}
 	}
 
