@@ -1,4 +1,4 @@
-package org.nc.game;
+package org.nk.game;
 
 import java.awt.event.KeyEvent;
 

@@ -1,4 +1,4 @@
-package org.nc.game;
+package org.nk.game;
 
 import org.nc.engine.GameContainer;
 import org.nc.engine.Input;
