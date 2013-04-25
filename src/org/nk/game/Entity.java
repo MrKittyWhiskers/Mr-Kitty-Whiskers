@@ -6,7 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import org.nc.engine.Graphics;
+import org.nk.engine.Graphics;
 
 public class Entity {
 	
@@ -23,13 +23,13 @@ public class Entity {
 	public Entity(PlayerEntity player) {
 		this.player = player;
 		try {
-			reader = new BufferedReader(new FileReader("res/coords.txt"));
+			reader = new BufferedReader(new FileReader(System.getenv("APPDATA") + "\\.NuclearKittens\\res\\coords.txt"));
 			line = reader.readLine();
 			while (!isDone) {
 				count();
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println("Coordinate file not found!");
 		}
 	}
 	
@@ -48,7 +48,7 @@ public class Entity {
 	
 	public void setVar() {
 		try {
-			reader = new BufferedReader(new FileReader("res/coords.txt"));
+			reader = new BufferedReader(new FileReader(System.getenv("APPDATA") + "\\.NuclearKittens\\res\\coords.txt"));
 			for (int i = 0; i <= lines; i++) {
 				String line = reader.readLine().trim();
 				abcd = line.split(" ");

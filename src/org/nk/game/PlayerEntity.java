@@ -2,16 +2,16 @@ package org.nk.game;
 
 import java.awt.Rectangle;
 import java.util.ArrayList;
-import org.nc.engine.Game;
-import org.nc.engine.GameContainer;
-import org.nc.engine.Graphics;
-import org.nc.engine.Sprite;
+import org.nk.engine.Game;
+import org.nk.engine.GameContainer;
+import org.nk.engine.Graphics;
+import org.nk.engine.Sprite;
 
 public class PlayerEntity {
 
 	GameContainer gc;
-	float squareX;
-	float squareY;
+	float squareX = 0;
+	float squareY = 0;
 	float VX = 0;
 	float VY = 0;
 	int movement = -1;
@@ -43,7 +43,7 @@ public class PlayerEntity {
 	
 	public void render(Graphics g) {
 		new Sprite();
-		g.drawImage(Sprite.getSprite("res/textures.png", 1, 50, 50), squareX, squareY);
+		g.drawImage(Sprite.getSprite(System.getenv("APPDATA") + "\\.NuclearKittens\\res\\textures.png", 1, 50, 50), squareX, squareY);
 	}
 
 }

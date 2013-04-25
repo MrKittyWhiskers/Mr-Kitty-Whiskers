@@ -2,10 +2,10 @@ package org.nk.game;
 
 import java.awt.event.KeyEvent;
 
-import org.nc.engine.*;
+import org.nk.engine.*;
 
 public class Control extends Input {
-
+	
 	public Control() {
 	}
 

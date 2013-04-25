@@ -1,10 +1,10 @@
 package org.nk.game;
 
 import java.awt.Color;
-import org.nc.engine.Game;
-import org.nc.engine.GameContainer;
-import org.nc.engine.Graphics;
-import org.nc.engine.Input;
+import org.nk.engine.Game;
+import org.nk.engine.GameContainer;
+import org.nk.engine.Graphics;
+import org.nk.engine.Input;
 
 public class Multi extends Game{
 	
@@ -31,9 +31,13 @@ public class Multi extends Game{
 
 	@Override
 	public void render(Graphics g) {
-		g.fillRect(0, 0, getWidth(), getHeight());
 		g.setColor(Color.PINK);
-		g.fillRect(0, 0, width, height);
+		g.fillRect(0, 0, gc.getWidth(), gc.getHeight());
+	}
+
+	@Override
+	public int getID() {
+		return 4;
 	}
 
 }

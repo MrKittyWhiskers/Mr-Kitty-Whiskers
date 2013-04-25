@@ -4,10 +4,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import org.nc.engine.Game;
-import org.nc.engine.GameContainer;
-import org.nc.engine.Graphics;
-import org.nc.engine.Input;
+import org.nk.engine.Game;
+import org.nk.engine.GameContainer;
+import org.nk.engine.Graphics;
+import org.nk.engine.Input;
 
 public class Single extends Game {
 
@@ -37,12 +37,17 @@ public class Single extends Game {
 	public void render(Graphics g) {
 		BufferedImage i = null;
 		try {
-			i = ImageIO.read(new File("res/landscape.png"));
+			i = ImageIO.read(new File(System.getenv("APPDATA") + "\\.NuclearKittens\\res\\landscape.png"));
 		} catch (IOException e) {
 		}
 		g.drawImage(i, 0, 0);
 		entity.render(g);
 		player.render(g);
+	}
+
+	@Override
+	public int getID() {
+		return 3;
 	}
 
 }

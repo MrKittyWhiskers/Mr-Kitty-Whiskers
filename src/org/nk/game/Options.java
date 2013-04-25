@@ -3,11 +3,11 @@ package org.nk.game;
 import java.awt.Color;
 import java.awt.Font;
 
-import org.nc.engine.Button;
-import org.nc.engine.Game;
-import org.nc.engine.GameContainer;
-import org.nc.engine.Graphics;
-import org.nc.engine.Input;
+import org.nk.engine.Button;
+import org.nk.engine.Game;
+import org.nk.engine.GameContainer;
+import org.nk.engine.Graphics;
+import org.nk.engine.Input;
 
 public class Options extends Game{
 
@@ -24,24 +24,28 @@ public class Options extends Game{
 	public void init() {
 		stateName = "Play";
 		gc.setTitle("Nuclear Kittens | Options");
-		back = new Button("res/button.png", getWidth() / 2 - 125, 10, this, input, "Back");
+		back = new Button(System.getenv("APPDATA") + "\\.NuclearKittens\\res\\button.png", gc.getWidth() / 2 - 125, 10, this, input, "Back");
 	}
 
 	@Override
 	public void update() {
 		if (back.isClicked()) {
-			gc.enterState(new Menu(gc, input), input);
+			gc.enterState(2);
 		}
 	}
 
 	@Override
 	public void render(Graphics g) {
-		g.fillRect(0, 0, getWidth(), getHeight());
 		g.setColor(Color.PINK);
-		g.fillRect(0, 0, width, height);
+		g.fillRect(0, 0, gc.getWidth(), gc.getHeight());
 		g.setColor(Color.black);
 		Font font = new Font("Arial", Font.PLAIN, 20);
 		g.setFont(font);
 		back.render(g);
+	}
+
+	@Override
+	public int getID() {
+		return 5;
 	}
 }

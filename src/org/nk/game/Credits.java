@@ -3,8 +3,8 @@ package org.nk.game;
 import java.awt.*;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.AffineTransform;
-import org.nc.engine.*;
-import org.nc.engine.Graphics;
+import org.nk.engine.*;
+import org.nk.engine.Graphics;
 
 public class Credits extends Game{
 
@@ -34,10 +34,15 @@ public class Credits extends Game{
 
 	@Override
 	public void render(Graphics g) {
-		g.fillRect(0, 0, getWidth(), getHeight());
+		g.fillRect(0, 0, gc.getWidth(), gc.getHeight());
 		g.setColor(Color.PINK);
-		g.fillRect(0, 0, width, height);
+		g.fillRect(0, 0, gc.getWidth(), gc.getHeight());
 		g.drawString("Credits", 10, 10, font);
+	}
+
+	@Override
+	public int getID() {
+		return 6;
 	}
 
 
