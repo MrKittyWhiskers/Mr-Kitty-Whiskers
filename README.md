@@ -1,1 +1,1 @@
-Flash! Ahhhhh! Saviour of the universe! Bullshit
+Flash! Ahhhhh! Saviour of the universe!
