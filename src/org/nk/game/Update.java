@@ -25,15 +25,29 @@ public class Update {
 
 	private enum filesEnum {
 
-		BUTTONPNG(System.getenv("APPDATA") + "\\.NuclearKittens\\res\\", "button.png"), COORDS(System.getenv("APPDATA") + "\\.NuclearKittens\\res\\", "coords.txt"), LANDSCAPEPNG(System.getenv("APPDATA") + "\\.NuclearKittens\\res\\", "landscape.png"), TEXTURESPNG(System.getenv("APPDATA") + "\\.NuclearKittens\\res\\", "textures.png");
+		BUTTONPNG(
+			System.getenv("APPDATA") + "\\.NuclearKittens\\res\\",
+			"button.png"),
+		COORDS(
+			System.getenv("APPDATA") + "\\.NuclearKittens\\res\\",
+			"coords.txt"),
+		LANDSCAPEPNG(
+			System.getenv("APPDATA") + "\\.NuclearKittens\\res\\",
+			"landscape.png"),
+		TEXTURESPNG(
+			System.getenv("APPDATA") + "\\.NuclearKittens\\res\\",
+			"textures.png"),
+		TEST(
+			System.getenv("APPDATA") + "\\.NuclearKittens\\res\\",
+			"TEST.txt");
 
-		String path;
-		String name;
+	String path;
+	String name;
 
-		private filesEnum(String path, String name) {
-			this.path = path;
-			this.name = name;
-		}
+	private filesEnum(String path, String name) {
+		this.path = path;
+		this.name = name;
+	}
 	}
 
 	public void download(String file, String path) {

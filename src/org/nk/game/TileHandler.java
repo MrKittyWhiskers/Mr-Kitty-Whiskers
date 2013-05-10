@@ -22,7 +22,7 @@ public class TileHandler {
 	public TileHandler(GameContainer gc, PlayerEntity player) throws IOException {
 		this.player = player;
 		this.gc = gc;
-		BufferedReader in = new BufferedReader(new FileReader("D:/Java/TEST.txt"));
+		BufferedReader in = new BufferedReader(new FileReader(System.getenv("APPDATA") + "\\.NuclearKittens\\res\\TEST.txt\\"));
 
 		String line;
 		int linenumber = 0;
@@ -36,7 +36,7 @@ public class TileHandler {
 
 		in.close();
 
-		Tile.setImage("D:/Java/terrain.png");
+		Tile.setImage(System.getenv("APPDATA") + "\\.NuclearKittens\\res\\terrain.png\\");
 
 		for (int y = 0; y < linenumber; y++) {
 			for (int x = 0; x < lines.get(y).length(); x++) {
