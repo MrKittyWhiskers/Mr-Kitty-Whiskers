@@ -21,15 +21,13 @@ public class Credits extends Game{
 
 	@Override
 	public void init() {
-		stateName = "Play";
+		setStateName("Play");
 		gc.setTitle("Nuclear Kittens | Credits");
 		font = new Font("OCR A Extended", Font.PLAIN, 40);
 	}
 
 	@Override
 	public void update() {
-		
-		
 	}
 
 	@Override
@@ -37,7 +35,7 @@ public class Credits extends Game{
 		g.fillRect(0, 0, gc.getWidth(), gc.getHeight());
 		g.setColor(Color.PINK);
 		g.fillRect(0, 0, gc.getWidth(), gc.getHeight());
-		g.drawString("Credits", 10, 10, font);
+		
 	}
 
 	@Override

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import org.nk.engine.Graphics;
 
 public class Entity {
-	
+
 	PlayerEntity player;
 	ArrayList<Rectangle> CB = new ArrayList<Rectangle>();
 	String[] abcd = new String[1];
@@ -32,20 +32,50 @@ public class Entity {
 			System.out.println("Coordinate file not found!");
 		}
 	}
-	
+
 	public void update() {
-		player.isColliding.clear();
+		player.isBottomColliding.clear();
+		player.isRightColliding.clear();
+		player.isLeftColliding.clear();
+
 		for (int i = 0; i < CB.size(); i++) {
-			if (CB.get(i).intersects(player.player)) {
+			if (CB.get(i).intersects(player.Bottom)) {
 				player.VY = 0;
 				player.squareY = CB.get(i).y - 49;
-				player.isColliding.add(true);
+				player.isBottomColliding.add(true);
+				break;
 			} else {
-				player.isColliding.add(false);
+				player.isBottomColliding.add(false);
+			}
+		}
+
+		for (int i = 0; i < CB.size(); i++) {
+			if (CB.get(i).intersects(player.Right)) {
+				if (!CB.get(i).intersects(player.Bottom)) {
+					player.VY = 0;
+					player.squareX = CB.get(i).x - 49;
+					player.isRightColliding.add(true);
+					break;
+				}
+			} else {
+				player.isRightColliding.add(false);
+			}
+		}
+
+		for (int i = 0; i < CB.size(); i++) {
+			if (CB.get(i).intersects(player.Left)) {
+				if (!CB.get(i).intersects(player.Bottom)) {
+					player.VY = 0;
+					player.squareX = CB.get(i).x + CB.get(i).width - 1;
+					player.isLeftColliding.add(true);
+					break;
+				}
+			} else {
+				player.isLeftColliding.add(false);
 			}
 		}
 	}
-	
+
 	public void setVar() {
 		try {
 			reader = new BufferedReader(new FileReader(System.getenv("APPDATA") + "\\.NuclearKittens\\res\\coords.txt"));
@@ -64,7 +94,7 @@ public class Entity {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void count() {
 		try {
 			line = reader.readLine();
@@ -78,7 +108,7 @@ public class Entity {
 		} catch (NullPointerException npe) {
 		}
 	}
-	
+
 	public void render(Graphics g) {
 		for (int box = 0; box < CB.size(); box++) {
 			g.drawShape(CB.get(box));

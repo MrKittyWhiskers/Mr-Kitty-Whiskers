@@ -5,7 +5,7 @@ import java.awt.event.KeyEvent;
 import org.nk.engine.*;
 
 public class Control extends Input {
-	
+
 	public Control() {
 	}
 
@@ -26,10 +26,14 @@ public class Control extends Input {
 		if ((e.getKeyCode() == 68) || (e.getKeyCode() == 65)) {
 			Single.player.movement = -1;
 		}
+		if (game.getStateName() == "Play") {
+			if (e.getKeyCode() == 27) {
+				Single.exit();
+			}
+		}
 	}
 
 	@Override
 	public void keyType(KeyEvent e, Game game) {
-
 	}
 }
