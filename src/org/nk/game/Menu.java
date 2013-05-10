@@ -28,7 +28,7 @@ public class Menu extends Game {
 
 	@Override
 	public void init() {
-		stateName = "Menu";
+		setStateName("Menu");
 		System.out.println("Started");
 		gc.setTitle("Nuclear Kittens | Alpha 0.0.1");
 		single = new Button(System.getenv("APPDATA") + "\\.NuclearKittens\\res\\button.png", gc.getWidth() / 2 - 125, 100, this, input, "Singleplayer");

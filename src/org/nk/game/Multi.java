@@ -18,7 +18,7 @@ public class Multi extends Game{
 
 	@Override
 	public void init() {
-		stateName = "Play";
+		setStateName("Play");
 		gc.setTitle("Nuclear Kittens | Multiplayer");
 		
 	}

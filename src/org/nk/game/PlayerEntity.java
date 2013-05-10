@@ -1,5 +1,6 @@
 package org.nk.game;
 
+import java.awt.Color;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import org.nk.engine.Game;
@@ -15,20 +16,37 @@ public class PlayerEntity {
 	float VX = 0;
 	float VY = 0;
 	int movement = -1;
-	ArrayList<Boolean> isColliding = new ArrayList<Boolean>();
+	ArrayList<Boolean> isBottomColliding = new ArrayList<Boolean>();
+	ArrayList<Boolean> isRightColliding = new ArrayList<Boolean>();
+	ArrayList<Boolean> isLeftColliding = new ArrayList<Boolean>();
 	boolean jumping;
-	Rectangle player = new Rectangle(0, 0, 50, 50);
+	Rectangle Bottom = new Rectangle();
+	Rectangle Right = new Rectangle();
+	Rectangle Left = new Rectangle();
+	Rectangle player = new Rectangle();
+	
+	public PlayerEntity(GameContainer gc) {
+		this.gc = gc;
+	}
 
 	public void update(Game game) {
 		if (movement == 0) {
-			VX = -0.2f * game.delta();
+			if (!isLeftColliding.contains(true)) {
+				VX = -0.2f * game.delta();
+			} else {
+				VX = 0;
+			}
 		} else if (movement == 2) {
-			VX = 0.2f * game.delta();
+			if (!isRightColliding.contains(true)) {
+				VX = 0.2f * game.delta();
+			} else {
+				VX = 0;
+			}
 		} else {
 			VX = 0;
 		}
-		
-		if (isColliding.contains(true)) {
+
+		if (isBottomColliding.contains(true)) {
 			if (jumping) {
 				squareY -= 50;
 				jumping = false;
@@ -36,14 +54,29 @@ public class PlayerEntity {
 		} else {
 			VY += 0.01f * game.delta();
 		}
-		player.setBounds((int) squareX, (int) squareY, 50, 50);
+
 		squareX += VX;
 		squareY += VY;
+		Bottom.setBounds((int) squareX + 5, (int) squareY + 40, 40, 10);
+		Right.setBounds((int) squareX + 41, (int) squareY + 14, 10, 22);
+		Left.setBounds((int) squareX - 1, (int) squareY + 14, 10, 22);
+		player.setBounds((int) squareX, (int) squareY, 50, 48);
 	}
-	
+
 	public void render(Graphics g) {
 		new Sprite();
 		g.drawImage(Sprite.getSprite(System.getenv("APPDATA") + "\\.NuclearKittens\\res\\textures.png", 1, 50, 50), squareX, squareY);
+		if (gc.isDebugVis) {
+			g.setColor(Color.BLUE);
+			g.drawShape(Bottom);
+			g.drawShape(Right);
+			g.drawShape(Left);
+			g.drawShape(player);
+		}
 	}
 
+	public void die() {
+		System.out.println("You dead!");
+		squareX = squareY = 0;
+	}
 }

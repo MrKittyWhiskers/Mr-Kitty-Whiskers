@@ -22,7 +22,7 @@ public class Options extends Game{
 
 	@Override
 	public void init() {
-		stateName = "Play";
+		setStateName("Options");
 		gc.setTitle("Nuclear Kittens | Options");
 		back = new Button(System.getenv("APPDATA") + "\\.NuclearKittens\\res\\button.png", gc.getWidth() / 2 - 125, 10, this, input, "Back");
 	}
