@@ -14,6 +14,10 @@ public class Tile {
 	private int ID;
 	private int x;
 	private int y;
+	private int setX;
+	private int setY;
+	int windowX;
+	int windowY;
 	private int size;
 	private static BufferedImage img;
 	private int spriteX;
@@ -24,8 +28,8 @@ public class Tile {
 
 	public Tile(int ID, int size, int x, int y, int spriteX, int spriteY, boolean solid, boolean kill) {
 		this.ID = ID;
-		this.x = x;
-		this.y = y;
+		this.setX = x;
+		this.setY = y;
 		this.spriteX = spriteX;
 		this.spriteY = spriteY;
 		this.size = size;
@@ -43,7 +47,12 @@ public class Tile {
 	}
 
 	public void render(Graphics g) {
-		g.drawImage(img.getSubimage(spriteX * 10, spriteY * 10, 10, 10), x, y, size, size);
+		g.drawImage(img.getSubimage(spriteX * 10, spriteY * 10, 10, 10), getX(), getY(), size, size);
+	}
+	
+	public void update() {
+		x = setX + windowX;
+		y = setY + windowY;
 	}
 
 	public int getID() {
@@ -68,6 +77,8 @@ public class Tile {
 	}
 
 	public boolean intersects(Rectangle shape) {
+		tile.x = x;
+		tile.y = y;
 		if (solid) {
 			if (tile.intersects(shape)) {
 				return true;

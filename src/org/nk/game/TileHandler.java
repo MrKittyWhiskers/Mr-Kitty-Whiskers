@@ -22,7 +22,7 @@ public class TileHandler {
 	public TileHandler(GameContainer gc, PlayerEntity player) throws IOException {
 		this.player = player;
 		this.gc = gc;
-		BufferedReader in = new BufferedReader(new FileReader(System.getenv("APPDATA") + "\\.NuclearKittens\\res\\TEST.txt\\"));
+		BufferedReader in = new BufferedReader(new FileReader("D:/Java/TEST.txt"));
 
 		String line;
 		int linenumber = 0;
@@ -36,7 +36,7 @@ public class TileHandler {
 
 		in.close();
 
-		Tile.setImage(System.getenv("APPDATA") + "\\.NuclearKittens\\res\\terrain.png\\");
+		Tile.setImage("D:/Java/Terrain.png");
 
 		for (int y = 0; y < linenumber; y++) {
 			for (int x = 0; x < lines.get(y).length(); x++) {
@@ -56,10 +56,10 @@ public class TileHandler {
 		player.isRightColliding.clear();
 		player.isLeftColliding.clear();
 
-		for (int i = 0; i < tiles.size(); i++) {
-			if (tiles.get(i).intersects(player.Bottom)) {
+		for (Tile t : tiles) {
+			if (t.intersects(player.Bottom)) {
 				player.VY = 0;
-				player.squareY = tiles.get(i).getY() - 49;
+				player.Y = t.getY() - 49;
 				player.isBottomColliding.add(true);
 				break;
 			} else {
@@ -67,11 +67,11 @@ public class TileHandler {
 			}
 		}
 
-		for (int i = 0; i < tiles.size(); i++) {
-			if (tiles.get(i).intersects(player.Right)) {
-				if (!tiles.get(i).intersects(player.Bottom)) {
+		for (Tile t : tiles) {
+			if (t.intersects(player.Right)) {
+				if (!t.intersects(player.Bottom)) {
 					player.VY = 0;
-					player.squareX = tiles.get(i).getX() - 49;
+					player.X = t.getX() - 49;
 					player.isRightColliding.add(true);
 					break;
 				}
@@ -80,11 +80,11 @@ public class TileHandler {
 			}
 		}
 
-		for (int i = 0; i < tiles.size(); i++) {
-			if (tiles.get(i).intersects(player.Left)) {
-				if (!tiles.get(i).intersects(player.Bottom)) {
+		for (Tile t : tiles) {
+			if (t.intersects(player.Left)) {
+				if (!t.intersects(player.Bottom)) {
 					player.VY = 0;
-					player.squareX = tiles.get(i).getX() + size - 1;
+					player.X = t.getX() + size - 1;
 					player.isLeftColliding.add(true);
 					break;
 				}
@@ -97,6 +97,12 @@ public class TileHandler {
 			if (t.intersectsKillTile(player.player)) {
 				player.die();
 			}
+		}
+		
+		for (Tile t : tiles) {
+			t.windowX = Single.windowX;
+			t.windowY = Single.windowY;
+			t.update();
 		}
 	}
 

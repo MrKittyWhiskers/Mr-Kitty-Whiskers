@@ -1,7 +1,10 @@
 package org.nk.game;
 
 import java.awt.Color;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
+import javax.imageio.ImageIO;
 import org.nk.engine.Game;
 import org.nk.engine.GameContainer;
 import org.nk.engine.Graphics;
@@ -13,9 +16,11 @@ public class Single extends Game {
 	Input input;
 	public static PlayerEntity player;
 	TileHandler tiles;
+	static int windowX;
+	static int windowY;
 
 	public Single(GameContainer launch, Input input) {
-		gc = launch;
+		this.gc = launch;
 		player = new PlayerEntity(gc);
 		this.input = input;
 		try {

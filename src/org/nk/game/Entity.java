@@ -41,7 +41,7 @@ public class Entity {
 		for (int i = 0; i < CB.size(); i++) {
 			if (CB.get(i).intersects(player.Bottom)) {
 				player.VY = 0;
-				player.squareY = CB.get(i).y - 49;
+				player.Y = CB.get(i).y - 49;
 				player.isBottomColliding.add(true);
 				break;
 			} else {
@@ -53,7 +53,7 @@ public class Entity {
 			if (CB.get(i).intersects(player.Right)) {
 				if (!CB.get(i).intersects(player.Bottom)) {
 					player.VY = 0;
-					player.squareX = CB.get(i).x - 49;
+					player.X = CB.get(i).x - 49;
 					player.isRightColliding.add(true);
 					break;
 				}
@@ -66,7 +66,7 @@ public class Entity {
 			if (CB.get(i).intersects(player.Left)) {
 				if (!CB.get(i).intersects(player.Bottom)) {
 					player.VY = 0;
-					player.squareX = CB.get(i).x + CB.get(i).width - 1;
+					player.X = CB.get(i).x + CB.get(i).width - 1;
 					player.isLeftColliding.add(true);
 					break;
 				}

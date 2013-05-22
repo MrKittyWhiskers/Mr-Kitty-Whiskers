@@ -20,7 +20,6 @@ public class Launch extends GameContainer{
 	public void start(String[] args) {
 		setTitle("Nuclear Kittens");
 		setSize(900, 600);
-		isDebugVis = false;
 		
 		Input input = new Control();
 		initInput(input);
@@ -36,6 +35,12 @@ public class Launch extends GameContainer{
 			new Update(Boolean.parseBoolean(args[0]), this, input);
 		} catch (ArrayIndexOutOfBoundsException e) {
 			System.out.println("Missing argument: update (true / false)");
+		}
+		
+		try {
+			isDebugVis = Boolean.parseBoolean(args[1]);
+		} catch (ArrayIndexOutOfBoundsException e) {
+			System.out.println("Missing argument: debug (true / false)");
 		}
 	}
 }

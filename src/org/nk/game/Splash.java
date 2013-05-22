@@ -1,6 +1,8 @@
 package org.nk.game;
 
+import java.awt.Color;
 import java.awt.Font;
+
 import org.nk.engine.Game;
 import org.nk.engine.GameContainer;
 import org.nk.engine.Graphics;
