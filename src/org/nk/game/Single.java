@@ -1,14 +1,12 @@
 package org.nk.game;
 
 import java.awt.Color;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-import javax.imageio.ImageIO;
 import org.nk.engine.Game;
 import org.nk.engine.GameContainer;
 import org.nk.engine.Graphics;
 import org.nk.engine.Input;
+import org.nk.plugin.PluginLoader;
 
 public class Single extends Game {
 
@@ -20,7 +18,12 @@ public class Single extends Game {
 	static int windowY;
 
 	public Single(GameContainer launch, Input input) {
-		this.gc = launch;
+		try {
+			new PluginLoader();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		gc = launch;
 		player = new PlayerEntity(gc);
 		this.input = input;
 		try {

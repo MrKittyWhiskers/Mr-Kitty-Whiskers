@@ -74,8 +74,8 @@ public class PlayerEntity {
 		Y += VY;
 
 		Bottom.setBounds((int) X + 5, (int) Y + 40, 40, 10);
-		Right.setBounds((int) X + 41, (int) Y + 14, 10, 22);
-		Left.setBounds((int) X - 1, (int) Y + 14, 10, 22);
+		Right.setBounds((int) X + 31, (int) Y + 14, 20, 27);
+		Left.setBounds((int) X - 1, (int) Y + 14, 20, 27);
 		player.setBounds((int) X, (int) Y, 50, 45);
 	}
 
