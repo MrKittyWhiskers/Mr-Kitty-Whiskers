@@ -6,16 +6,19 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.ArrayList;
 import java.util.Properties;
 import java.util.jar.JarFile;
 
-
+import org.nk.game.Info;
 
 public class PluginLoader {
 
-	public PluginLoader() throws IOException {
-		File folder = new File(System.getenv("APPDATA") + "/.NuclearKittens/plugins/");
+	static ArrayList<Plugin> plugins = new ArrayList<>();
 
+	public PluginLoader() throws IOException {
+		File folder = new File(Info.path + "/plugins/");
+		
 		for (int i = 0; i < folder.listFiles().length; i++) {
 			File file = folder.listFiles()[i];
 			if (file.toString().endsWith(".jar")) {
@@ -31,6 +34,7 @@ public class PluginLoader {
 			URL urls[] = { new URL(jarURL) };
 			URLClassLoader ucl = new URLClassLoader(urls);
 			Plugin p = (Plugin) Class.forName(mainClass, true, ucl).newInstance();
+			plugins.add(p);
 			p.enable();
 		} catch (MalformedURLException | InstantiationException | IllegalAccessException | ClassNotFoundException ex) {
 			ex.printStackTrace();
@@ -46,9 +50,17 @@ public class PluginLoader {
 			return prop.getProperty("class");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
+		} catch (NullPointerException e) {
+			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public static void update() {
+		for (Plugin p : plugins) {
+			p.update();
+		}
 	}
 }

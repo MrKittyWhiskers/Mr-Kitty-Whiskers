@@ -22,6 +22,7 @@ public class Menu extends Game {
 	Button credits;
 
 	public Menu(GameContainer launch, Input input) {
+		super(launch);
 		this.gc = launch;
 		this.input = input;
 	}
@@ -30,11 +31,10 @@ public class Menu extends Game {
 	public void init() {
 		setStateName("Menu");
 		System.out.println("Started");
-		gc.setTitle("Nuclear Kittens | Alpha 0.0.1");
-		single = new Button(System.getenv("APPDATA") + "\\.NuclearKittens\\res\\button.png", gc.getWidth() / 2 - 125, 100, this, input, "Singleplayer");
-		multi = new Button(System.getenv("APPDATA") + "\\.NuclearKittens\\res\\button.png", gc.getWidth() / 2 - 125, 200, this, input, "Multiplayer");
-		options = new Button(System.getenv("APPDATA") + "\\.NuclearKittens\\res\\button.png", gc.getWidth() / 2 - 125, 300, this, input, "Options");
-		credits = new Button(System.getenv("APPDATA") + "\\.NuclearKittens\\res\\button.png", gc.getWidth() / 2 - 125, 400, this, input, "Credits");
+		single = new Button(Info.path + "/res/button.png", gc.getWidth() / 2 - 125, 100, this, input, "Singleplayer");
+		multi = new Button(Info.path + "/res/button.png", gc.getWidth() / 2 - 125, 200, this, input, "Multiplayer");
+		options = new Button(Info.path + "/res/button.png", gc.getWidth() / 2 - 125, 300, this, input, "Options");
+		credits = new Button(Info.path + "/res/button.png", gc.getWidth() / 2 - 125, 400, this, input, "Credits");
 		font = new Font("OCR A Extended", Font.PLAIN, 40);
 		version = new Font("Arial", Font.PLAIN, 20);
 	}
@@ -42,19 +42,19 @@ public class Menu extends Game {
 	@Override
 	public void update() {
 		if (single.isClicked()) {
-			gc.enterState(Launch.Single);
+			gc.enterState(Info.Single);
 			System.out.println("Singleplayer");
 		}
 		if (multi.isClicked()) {
-			gc.enterState(Launch.Multi);
+			gc.enterState(Info.Multi);
 			System.out.println("Multiplayer");
 		}
 		if (options.isClicked()) {
-			gc.enterState(Launch.Options);
+			gc.enterState(Info.Options);
 			System.out.println("Options");
 		}
 		if (credits.isClicked()) {
-			gc.enterState(Launch.Credits);
+			gc.enterState(Info.Credits);
 			System.out.println("Credits");
 		}
 	}
@@ -64,8 +64,8 @@ public class Menu extends Game {
 		g.setColor(Color.PINK);
 		g.fillRect(0, 0, gc.getWidth(), gc.getHeight());
 		g.setColor(Color.BLACK);
-		g.drawString("Nuclear Kittens", gc.getWidth() / 2 - (int) (font.getStringBounds("Nuclear Kittens", frc).getWidth()) / 2, 50, font);
-		g.drawString("Alpha 0.0.1", 0, (int) (gc.getHeight() - version.getStringBounds("Alpha 0.0.1", frc).getHeight() * 1.35), version);
+		g.drawString(Info.name, gc.getWidth() / 2 - (int) (font.getStringBounds(Info.name, frc).getWidth()) / 2, 50, font);
+		g.drawString(Info.ver, 0, (int) (gc.getHeight() - version.getStringBounds(Info.ver, frc).getHeight() * 1.35), version);
 		single.render(g);
 		multi.render(g);
 		options.render(g);

@@ -1,8 +1,5 @@
 package org.nk.game;
 
-import java.awt.Color;
-import java.awt.Font;
-
 import org.nk.engine.Game;
 import org.nk.engine.GameContainer;
 import org.nk.engine.Graphics;
@@ -14,6 +11,7 @@ public class Splash extends Game {
 	Input input;
 
 	public Splash(GameContainer launch, Input input) {
+		super(launch);
 		this.gc = launch;
 		this.input = input;
 	}
@@ -25,15 +23,13 @@ public class Splash extends Game {
 
 	@Override
 	public void update() {
-		System.out.println("SPLASH");
 	}
-
-	int i = 0;
 
 	@Override
 	public void render(Graphics g) {
-		Font font = new Font("Arial", Font.PLAIN, 20);
-		g.drawString("Splash", gc.getWidth() / 2, gc.getHeight() / 2, font);
+		g.fillRect(0, 0, gc.getWidth(), gc.getHeight());
+		int scale = (int) (gc.getHeight() / 29);
+		g.drawResizeImage(PlayerEntity.image, gc.getWidth() / 2 - (16 * scale) / 2, 0, 16 * scale, 28 * scale);
 	}
 
 	@Override

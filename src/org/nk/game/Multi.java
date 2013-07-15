@@ -12,6 +12,7 @@ public class Multi extends Game{
 	Input input;
 
 	public Multi(GameContainer launch, Input input) {
+		super(launch);
 		this.gc = launch;
 		this.input = input;
 	}
@@ -19,7 +20,6 @@ public class Multi extends Game{
 	@Override
 	public void init() {
 		setStateName("Play");
-		gc.setTitle("Nuclear Kittens | Multiplayer");
 		
 	}
 

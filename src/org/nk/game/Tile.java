@@ -22,7 +22,7 @@ public class Tile {
 	private static BufferedImage img;
 	private int spriteX;
 	private int spriteY;
-	private Rectangle tile = new Rectangle();
+	Rectangle tile = new Rectangle();
 	private boolean solid;
 	private boolean kill;
 
@@ -47,7 +47,7 @@ public class Tile {
 	}
 
 	public void render(Graphics g) {
-		g.drawImage(img.getSubimage(spriteX * 10, spriteY * 10, 10, 10), getX(), getY(), size, size);
+		g.drawSubImage(img.getSubimage(spriteX * 10, spriteY * 10, 10, 10), getX(), getY(), size, size);
 	}
 	
 	public void update() {

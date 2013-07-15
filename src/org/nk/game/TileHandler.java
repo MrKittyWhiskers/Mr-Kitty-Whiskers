@@ -18,11 +18,12 @@ public class TileHandler {
 	ArrayList<Tile> tiles = new ArrayList<Tile>();
 	PlayerEntity player;
 	GameContainer gc;
+	private int width = 0;
 
 	public TileHandler(GameContainer gc, PlayerEntity player) throws IOException {
 		this.player = player;
 		this.gc = gc;
-		BufferedReader in = new BufferedReader(new FileReader(System.getenv("APPDATA") + "/.NuclearKittens/res/TEST.txt"));
+		BufferedReader in = new BufferedReader(new FileReader(Info.path + "/res/TEST.txt"));
 
 		String line;
 		int linenumber = 0;
@@ -36,7 +37,7 @@ public class TileHandler {
 
 		in.close();
 
-		Tile.setImage(System.getenv("APPDATA") + "/.NuclearKittens/res/Terrain.png");
+		Tile.setImage(Info.path + "/res/Terrain.png");
 
 		for (int y = 0; y < linenumber; y++) {
 			for (int x = 0; x < lines.get(y).length(); x++) {
@@ -49,6 +50,8 @@ public class TileHandler {
 				}
 			}
 		}
+
+		width = lines.get(0).length() - 1;
 	}
 
 	public void update() {
@@ -98,7 +101,7 @@ public class TileHandler {
 				player.die();
 			}
 		}
-		
+
 		for (Tile t : tiles) {
 			t.windowX = Single.windowX;
 			t.windowY = Single.windowY;
@@ -106,12 +109,29 @@ public class TileHandler {
 		}
 	}
 
+	public int getTile(int line, int square) {
+		return width * line + square + line;
+	}
+
 	public void render(Graphics g) {
 		for (int i = 0; i < tiles.size(); i++) {
 			tiles.get(i).render(g);
-			if (gc.isDebugVis) {
-				// g.drawShape(tiles.get(i).tile);
+			// if (gc.isDebugVis) {
+			// g.drawShape(tiles.get(i).tile);
+			// }
+		}
+
+		
+		try {
+		if (gc.isDebugVis) {
+			for (int x = 0; x < 4; x++) {
+				for (int y = 0; y < 4; y++) {
+					g.drawShape(tiles.get(getTile((int) ((player.Y - Single.windowY) / 15) + y, (int) ((player.X - Single.windowX) / 15) + x)).tile);
+				}
 			}
+		}
+		}catch(IndexOutOfBoundsException e) {
+			
 		}
 	}
 }

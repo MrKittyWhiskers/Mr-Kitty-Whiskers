@@ -1,6 +1,7 @@
 package org.nk.game;
 
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 
 import org.nk.engine.*;
 
@@ -11,29 +12,20 @@ public class Control extends Input {
 
 	@Override
 	public void keyPress(KeyEvent e, Game game) {
-		if (e.getKeyCode() == 87) {
-			Single.player.jumping = true;
-		}
-		if (e.getKeyCode() == 68) {
-			Single.player.movement = 2;
-		} else if (e.getKeyCode() == 65) {
-			Single.player.movement = 0;
-		}
+		game.keyPress(e);
 	}
 
 	@Override
 	public void keyRelease(KeyEvent e, Game game) {
-		if ((e.getKeyCode() == 68) || (e.getKeyCode() == 65)) {
-			Single.player.movement = -1;
-		}
-		if (game.getStateName() == "Play") {
-			if (e.getKeyCode() == 27) {
-				Single.exit();
-			}
-		}
+		game.keyRelease(e);
 	}
 
 	@Override
 	public void keyType(KeyEvent e, Game game) {
+	}
+
+	@Override
+	public void mouseClick(MouseEvent e, Game game) {
+
 	}
 }

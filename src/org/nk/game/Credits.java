@@ -15,6 +15,7 @@ public class Credits extends Game{
 	FontRenderContext frc = new FontRenderContext(affinetransform, true, true);
 	
 	public Credits(GameContainer launch, Input input) {
+		super(launch);
 		this.gc = launch;
 		this.input = input;
 	}

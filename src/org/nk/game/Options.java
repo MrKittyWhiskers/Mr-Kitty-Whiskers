@@ -16,6 +16,7 @@ public class Options extends Game{
 	Button back;
 	
 	public Options(GameContainer launch, Input input) {
+		super(launch);
 		this.gc = launch;
 		this.input = input;
 	}
@@ -24,7 +25,7 @@ public class Options extends Game{
 	public void init() {
 		setStateName("Options");
 		gc.setTitle("Nuclear Kittens | Options");
-		back = new Button(System.getenv("APPDATA") + "\\.NuclearKittens\\res\\button.png", gc.getWidth() / 2 - 125, 10, this, input, "Back");
+		back = new Button(Info.path + "\\res\\button.png", gc.getWidth() / 2 - 125, 10, this, input, "Back");
 	}
 
 	@Override

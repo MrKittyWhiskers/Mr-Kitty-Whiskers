@@ -22,6 +22,7 @@ public class DownloadScreen extends Game{
 	static String file = "Initiating";
 
 	public DownloadScreen(GameContainer launch, Input input) {
+		super(launch);
 		this.gc = launch;
 		this.input = input;
 	}
@@ -29,7 +30,6 @@ public class DownloadScreen extends Game{
 	@Override
 	public void init() {
 		setStateName("Update");
-		gc.setTitle("Nuclear Kittens | Updating");
 		fonta = new Font("Arial", Font.PLAIN, 30);
 		fontb = new Font("Arial", Font.PLAIN, 20);
 	}

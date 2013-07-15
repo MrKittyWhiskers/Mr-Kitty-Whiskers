@@ -7,5 +7,7 @@ public abstract class Plugin {
 	void enable() {
 		onEnable();
 	}
+	
+	public void update(){}
 
 }

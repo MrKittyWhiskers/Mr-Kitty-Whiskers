@@ -25,31 +25,22 @@ public class Update {
 
 	private enum filesEnum {
 
-		BUTTONPNG(
-			System.getenv("APPDATA") + "\\.NuclearKittens\\res\\",
-			"button.png"),
-		COORDS(
-			System.getenv("APPDATA") + "\\.NuclearKittens\\res\\",
-			"coords.txt"),
-		LANDSCAPEPNG(
-			System.getenv("APPDATA") + "\\.NuclearKittens\\res\\",
-			"landscape.png"),
-		TEXTURESPNG(
-			System.getenv("APPDATA") + "\\.NuclearKittens\\res\\",
-			"textures.png");
+		BUTTONPNG(Info.path + "/res/", "button.png", ""), COORDS(Info.path + "/res/", "coords.txt", ""), TEXTURESPNG(Info.path + "/res/", "textures.png", ""), PLAYER(Info.path + "/res/", "player.gif", "skins");
 
-	String path;
-	String name;
+		String path;
+		String name;
+		String subDir;
 
-	private filesEnum(String path, String name) {
-		this.path = path;
-		this.name = name;
-	}
+		private filesEnum(String path, String name, String subDir) {
+			this.path = path;
+			this.name = name;
+			this.subDir = subDir;
+		}
 	}
 
-	public void download(String file, String path) {
+	public void download(String file, String subDir, String path) {
 		try {
-			URL url = new URL("https://dl.dropboxusercontent.com/u/49046656/NK/" + file);
+			URL url = new URL("https://dl.dropboxusercontent.com/u/49046656/NK/" + subDir + "/" + file);
 			URLConnection con = url.openConnection();
 			DataInputStream dis = new DataInputStream(con.getInputStream());
 			byte[] fileData = new byte[con.getContentLength()];
@@ -86,7 +77,7 @@ public class Update {
 	}
 
 	private void deleteFolder() {
-		File folder = new File(System.getenv("APPDATA") + "\\.NuclearKittens\\res");
+		File folder = new File(Info.path + "/res/");
 		if (update) {
 			File[] files = folder.listFiles();
 			if (files != null) {
@@ -99,12 +90,12 @@ public class Update {
 	}
 
 	private void createFiles() {
-		new File(System.getenv("APPDATA") + ".NuclearKittens/plugins/").mkdir();
+		new File(Info.path + "/plugins/").mkdir();
 		for (filesEnum file : filesEnum.values()) {
 			if (!new File(file.path, file.name).exists()) {
 				DownloadScreen.percent = (int) (100 / filesEnum.values().length * file.ordinal()) + 100 / filesEnum.values().length;
 				DownloadScreen.file = file.name();
-				download(file.name, file.path);
+				download(file.name, file.subDir, file.path);
 			}
 		}
 

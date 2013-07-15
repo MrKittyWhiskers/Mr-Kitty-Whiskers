@@ -2,11 +2,14 @@ package org.nk.game;
 
 import java.awt.Color;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import javax.imageio.ImageIO;
 import org.nk.engine.Game;
 import org.nk.engine.GameContainer;
 import org.nk.engine.Graphics;
-import org.nk.engine.Sprite;
 
 public class PlayerEntity {
 
@@ -25,12 +28,25 @@ public class PlayerEntity {
 	Rectangle Left = new Rectangle();
 	Rectangle player = new Rectangle();
 	int margin = 175;
+	static BufferedImage image;
+	double scale = 1.6;
+	int imageWidth;
+	int imageHeight;
 
 	public PlayerEntity(GameContainer gc) {
 		this.gc = gc;
+		try {
+			image = ImageIO.read(new File(Info.path + "/res/player.gif"));
+			imageWidth = image.getWidth();
+			imageHeight = image.getHeight();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void update(Game game) {
+		
+		
 		if (movement == 0) {
 			if (X < margin) {
 				float preX = X;
@@ -73,24 +89,23 @@ public class PlayerEntity {
 		X += VX;
 		Y += VY;
 
-		Bottom.setBounds((int) X + 5, (int) Y + 40, 40, 10);
-		Right.setBounds((int) X + 31, (int) Y + 14, 20, 27);
+		Bottom.setBounds((int) (X + imageWidth * scale - imageWidth / 2), (int) (Y + imageHeight * scale - 11), imageWidth, 10);
+		Right.setBounds((int) X + 8, (int) Y + 14, 20, 27);
 		Left.setBounds((int) X - 1, (int) Y + 14, 20, 27);
-		player.setBounds((int) X, (int) Y, 50, 45);
+		player.setBounds((int) X, (int) Y, (int) (imageWidth * scale), (int) (imageHeight * scale));
 	}
 
 	public void render(Graphics g) {
-		new Sprite();
-		g.drawImage(Sprite.getSprite(System.getenv("APPDATA") + "\\.NuclearKittens\\res\\textures.png", 1, 50, 50), X, Y);
+		g.drawResizeImage(image, (int) X, (int) Y, (int) (imageWidth * scale), (int) (imageHeight * scale));
 		if (gc.isDebugVis) {
 			g.setColor(Color.BLUE);
 			g.drawShape(Bottom);
-			g.drawShape(Right);
-			g.drawShape(Left);
-			g.drawShape(player);
+//			g.drawShape(Right);
+//			g.drawShape(Left);
+//			g.drawShape(player);
 		}
 	}
-
+	
 	public void die() {
 		System.out.println("You dead!");
 		Single.windowX = Single.windowY = 0;
