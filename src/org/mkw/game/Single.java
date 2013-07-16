@@ -15,6 +15,7 @@ public class Single extends Game {
 	static GameContainer gc;
 	Input input;
 	PauseScreen ps;
+	DevConsole console;
 	public static PlayerEntity player;
 	TileHandler tiles;
 	static int windowX;
@@ -41,6 +42,7 @@ public class Single extends Game {
 			e.printStackTrace();
 		}
 		ps = new PauseScreen(this, input);
+		console = new DevConsole(this);
 	}
 
 	@Override
@@ -79,6 +81,7 @@ public class Single extends Game {
 		tiles.render(g);
 		player.render(g);
 		ps.renderInit(g);
+		console.render(g);
 		g.setColor(Color.BLACK);
 	}
 
