@@ -1,6 +1,8 @@
 package org.mkw.game;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -62,8 +64,16 @@ public class TileHandler {
 		for (Tile t : tiles) {
 			if (t.intersects(player.Bottom)) {
 				player.VY = 0;
-				player.Y = t.getY() - 49;
+				player.Y = t.getY() - (player.imageHeight - 1) - size;
 				player.isBottomColliding.add(true);
+//					try {
+//						new BufferedReader(new FileReader(new File("C:/potato"))).readLine();
+//					} catch (FileNotFoundException e) {
+//						e.printStackTrace();
+//					} catch (IOException e) {
+//						e.printStackTrace();
+//					}
+					System.out.println(1/0);
 				break;
 			} else {
 				player.isBottomColliding.add(false);
@@ -87,7 +97,7 @@ public class TileHandler {
 			if (t.intersects(player.Left)) {
 				if (!t.intersects(player.Bottom)) {
 					player.VY = 0;
-					player.X = t.getX() + size - 1;
+					player.X = t.getX() - 1;
 					player.isLeftColliding.add(true);
 					break;
 				}
