@@ -4,6 +4,7 @@ import java.io.PrintStream;
 
 import javax.swing.JPanel;
 
+import org.nk.engine.ErrorScreen;
 import org.nk.engine.GameContainer;
 import org.nk.engine.Input;
 
@@ -20,8 +21,9 @@ public class Launch extends GameContainer{
 		Input input = new Control();
 		initInput(input);
 		
-		Thread.setDefaultUncaughtExceptionHandler(new ErrorScreen(this));
-//		System.setOut(new PrintStream(OutputHandler.out, true));
+		setErrorScreenEnabled(true, "An error occurred. Please copy this page to a new bug report on our Github page (https://github.com/MrKittyWhiskers/Mr-Kitty-Whiskers/issues/new)");
+		
+		System.setOut(new PrintStream(OutputHandler.out, true));
 		
 		addState(new Splash(this, input));
 
