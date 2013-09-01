@@ -13,14 +13,9 @@ public class Launch extends GameContainer{
 		new Launch().start(args);
 	}
 	
-	public static JPanel p = new JPanel();
-	
 	public void start(String[] args) {
 		setTitle(Info.name);
 		setSize(900, 600);
-		
-		p.setVisible(false);
-		frame.add(p);
 		
 		Input input = new Control();
 		initInput(input);
