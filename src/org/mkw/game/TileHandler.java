@@ -1,17 +1,15 @@
 package org.mkw.game;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import org.mkw.engine.GameContainer;
+import org.mkw.engine.Graphics;
 import org.mkw.tiles.Air;
 import org.mkw.tiles.Ground;
 import org.mkw.tiles.Kill;
-import org.nk.engine.GameContainer;
-import org.nk.engine.Graphics;
 
 public class TileHandler {
 
@@ -39,8 +37,6 @@ public class TileHandler {
 
 		in.close();
 
-		Tile.setImage(Info.path + "/res/Terrain.png");
-
 		for (int y = 0; y < linenumber; y++) {
 			for (int x = 0; x < lines.get(y).length(); x++) {
 				if (lines.get(y).substring(x, x + 1).equals("0")) {
@@ -56,62 +52,62 @@ public class TileHandler {
 		width = lines.get(0).length() - 1;
 	}
 
+	int x;
+	int y;
+	
 	public void update() {
-		player.isBottomColliding.clear();
-		player.isRightColliding.clear();
-		player.isLeftColliding.clear();
+//		player.isBottomColliding.clear();
+//		player.isRightColliding.clear();
+//		player.isLeftColliding.clear();
+		
+		y=(int) (((int) player.getY() + 1  + player.getImageHeight() * 1.5) / size);
+		x=(int) (player.getX() + player.getImageWidth()) / size;
 
-		for (Tile t : tiles) {
-			if (t.intersects(player.Bottom)) {
-				player.VY = 0;
-				player.Y = t.getY() - (player.imageHeight - 1) - size;
-				player.isBottomColliding.add(true);
-//					try {
-//						new BufferedReader(new FileReader(new File("C:/potato"))).readLine();
-//					} catch (FileNotFoundException e) {
-//						e.printStackTrace();
-//					} catch (IOException e) {
-//						e.printStackTrace();
-//					}
-					System.out.println(1/0);
-				break;
-			} else {
-				player.isBottomColliding.add(false);
-			}
-		}
-
-		for (Tile t : tiles) {
-			if (t.intersects(player.Right)) {
-				if (!t.intersects(player.Bottom)) {
-					player.VY = 0;
-					player.X = t.getX() - 49;
-					player.isRightColliding.add(true);
-					break;
-				}
-			} else {
-				player.isRightColliding.add(false);
-			}
-		}
-
-		for (Tile t : tiles) {
-			if (t.intersects(player.Left)) {
-				if (!t.intersects(player.Bottom)) {
-					player.VY = 0;
-					player.X = t.getX() - 1;
-					player.isLeftColliding.add(true);
-					break;
-				}
-			} else {
-				player.isLeftColliding.add(false);
-			}
-		}
-
-		for (Tile t : tiles) {
-			if (t.intersectsKillTile(player.player)) {
-				player.die();
-			}
-		}
-
+		getTile(y, x).onCollision(new CollisionEvent(player));
+		
+//		for (Tile t : tiles) {
+//			if (t.intersects(player.Bottom)) {
+//				player.VY = 0;
+//				player.Y = t.getY() - (player.imageHeight - 1) - size;
+//				player.isBottomColliding.add(true);
+//				break;
+//			} else {
+//				player.isBottomColliding.add(false);
+//			}
+//		}
+//
+//		for (Tile t : tiles) {
+//			if (t.intersects(player.Right)) {
+//				if (!t.intersects(player.Bottom)) {
+//					player.VY = 0;
+//					player.X = t.getX() - 49;
+//					player.isRightColliding.add(true);
+//					break;
+//				}
+//			} else {
+//				player.isRightColliding.add(false);
+//			}
+//		}
+//
+//		for (Tile t : tiles) {
+//			if (t.intersects(player.Left)) {
+//				if (!t.intersects(player.Bottom)) {
+//					player.VY = 0;
+//					player.X = t.getX() - 1;
+//					player.isLeftColliding.add(true);
+//					break;
+//				}
+//			} else {
+//				player.isLeftColliding.add(false);
+//			}
+//		}
+//
+//		for (Tile t : tiles) {
+//			if (t.intersectsKillTile(player.player)) {
+//				player.die();
+//			}
+//		}
+		
 		for (Tile t : tiles) {
 			t.windowX = Single.windowX;
 			t.windowY = Single.windowY;
@@ -119,29 +115,29 @@ public class TileHandler {
 		}
 	}
 
-	public int getTile(int line, int square) {
-		return width * line + square + line;
+	public Tile getTile(int line, int square) {
+		return tiles.get(width * line + square + line);
 	}
 
 	public void render(Graphics g) {
-		for (int i = 0; i < tiles.size(); i++) {
-			tiles.get(i).render(g);
+		for (Tile t : tiles) {
+			t.render(g);
 			// if (gc.isDebugVis) {
-			// g.drawShape(tiles.get(i).tile);
+			// g.drawShape(t.tile);
 			// }
 		}
+		g.drawShape(getTile(y, x).tile);
 
-		
 		try {
-		if (gc.isDebugVis) {
-			for (int x = 0; x < 4; x++) {
-				for (int y = 0; y < 4; y++) {
-					g.drawShape(tiles.get(getTile((int) ((player.Y - Single.windowY) / 15) + y, (int) ((player.X - Single.windowX) / 15) + x)).tile);
+			if (gc.isDebugVis) {
+				for (int x = 0; x < 4; x++) {
+					for (int y = 0; y < 4; y++) {
+						g.drawShape(getTile((int) ((player.getY() - Single.windowY) / 15) + y, (int) ((player.getX() - Single.windowX) / 15) + x).tile);
+					}
 				}
 			}
-		}
-		}catch(IndexOutOfBoundsException e) {
-			
+		} catch (IndexOutOfBoundsException e) {
+
 		}
 	}
 }

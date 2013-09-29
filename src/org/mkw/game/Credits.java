@@ -3,8 +3,9 @@ package org.mkw.game;
 import java.awt.*;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.AffineTransform;
-import org.nk.engine.*;
-import org.nk.engine.Graphics;
+
+import org.mkw.engine.*;
+import org.mkw.engine.Graphics;
 
 public class Credits extends Game{
 
@@ -43,6 +44,4 @@ public class Credits extends Game{
 	public int getID() {
 		return 6;
 	}
-
-
 }

@@ -4,25 +4,28 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
-import org.nk.engine.Game;
-import org.nk.engine.Graphics;
+import org.mkw.engine.Game;
+import org.mkw.engine.GameContainer;
+import org.mkw.engine.Graphics;
 
 public abstract class Overlay {
 
 	boolean doPause;
 	private boolean vis = false;
 	Game state;
+	GameContainer gc;
 
-	public Overlay(boolean doPause, Game state) {
+	public Overlay(boolean doPause, Game state, GameContainer gc) {
 		this.doPause = doPause;
 		this.state = state;
+		this.gc = gc;
 	}
 
 	public void setVisible(boolean vis) {
 		this.vis = vis;
 
 		if (doPause) {
-			state.setPaused(vis);
+			gc.setRunning(true);
 		}
 	}
 

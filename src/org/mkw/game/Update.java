@@ -7,8 +7,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
 
-import org.nk.engine.GameContainer;
-import org.nk.engine.Input;
+import org.mkw.engine.GameContainer;
+import org.mkw.engine.Input;
 
 public class Update {
 

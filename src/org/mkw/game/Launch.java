@@ -1,12 +1,8 @@
 package org.mkw.game;
 
 import java.io.PrintStream;
-
-import javax.swing.JPanel;
-
-import org.nk.engine.ErrorScreen;
-import org.nk.engine.GameContainer;
-import org.nk.engine.Input;
+import org.mkw.engine.GameContainer;
+import org.mkw.engine.Input;
 
 public class Launch extends GameContainer{
 	
@@ -21,9 +17,9 @@ public class Launch extends GameContainer{
 		Input input = new Control();
 		initInput(input);
 		
-		setErrorScreenEnabled(true, "An error occurred. Please copy this page to a new bug report on our Github page (https://github.com/MrKittyWhiskers/Mr-Kitty-Whiskers/issues/new)");
+//		setErrorScreenEnabled(true, "An error occurred. Please copy this page to a new bug report on our Github page (https://github.com/MrKittyWhiskers/Mr-Kitty-Whiskers/issues/new)");
 		
-		System.setOut(new PrintStream(OutputHandler.out, true));
+//		System.setOut(new PrintStream(OutputHandler.out, true));
 		
 		addState(new Splash(this, input));
 
@@ -36,6 +32,8 @@ public class Launch extends GameContainer{
 		addState(new Multi(this, input));
 		addState(new Credits(this, input));
 		
+		init();
+		
 		try {
 			new Update(Boolean.parseBoolean(args[0]), this, input);
 		} catch (ArrayIndexOutOfBoundsException e) {
@@ -47,7 +45,5 @@ public class Launch extends GameContainer{
 		} catch (ArrayIndexOutOfBoundsException e) {
 			System.out.println("Missing argument: debug (true / false)");
 		}
-		
-		init();
 	}
 }

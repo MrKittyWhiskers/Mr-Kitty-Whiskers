@@ -3,7 +3,7 @@ package org.mkw.game;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import org.nk.engine.GameContainer;
+import org.mkw.engine.GameContainer;
 
 public class OutputHandler {
 	

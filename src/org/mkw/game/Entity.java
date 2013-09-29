@@ -1,117 +1,63 @@
 package org.mkw.game;
 
-import java.awt.Rectangle;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 
-import org.nk.engine.Graphics;
+import org.mkw.engine.Game;
+import org.mkw.engine.GameContainer;
 
-public class Entity {
+public abstract class Entity {
 
-	PlayerEntity player;
-	ArrayList<Rectangle> CB = new ArrayList<Rectangle>();
-	String[] abcd = new String[1];
-	float a, b, c, d;
-	Rectangle rect;
-	BufferedReader reader;
-	String line;
-	boolean isDone = false;
-	int lines;
-
-	public Entity(PlayerEntity player) {
-		this.player = player;
-		try {
-			reader = new BufferedReader(new FileReader(System.getenv("APPDATA") + "\\.NuclearKittens\\res\\coords.txt"));
-			line = reader.readLine();
-			while (!isDone) {
-				count();
-			}
-		} catch (IOException e) {
-			System.out.println("Coordinate file not found!");
-		}
+	GameContainer gc;
+	private float X = 0;
+	private float Y = 0;
+	private int imageWidth;
+	private int imageHeight;
+	float VX = 0;
+	float VY = 0;
+	int movement = -1;
+	public ArrayList<Boolean> isBottomColliding = new ArrayList<Boolean>();
+	public ArrayList<Boolean> isRightColliding = new ArrayList<Boolean>();
+	public ArrayList<Boolean> isLeftColliding = new ArrayList<Boolean>();
+	
+	public abstract void update(Game game);
+	
+	public float getX() {
+		return X;
 	}
 
-	public void update() {
-		player.isBottomColliding.clear();
-		player.isRightColliding.clear();
-		player.isLeftColliding.clear();
-
-		for (int i = 0; i < CB.size(); i++) {
-			if (CB.get(i).intersects(player.Bottom)) {
-				player.VY = 0;
-				player.Y = CB.get(i).y - 49;
-				player.isBottomColliding.add(true);
-				break;
-			} else {
-				player.isBottomColliding.add(false);
-			}
-		}
-
-		for (int i = 0; i < CB.size(); i++) {
-			if (CB.get(i).intersects(player.Right)) {
-				if (!CB.get(i).intersects(player.Bottom)) {
-					player.VY = 0;
-					player.X = CB.get(i).x - 49;
-					player.isRightColliding.add(true);
-					break;
-				}
-			} else {
-				player.isRightColliding.add(false);
-			}
-		}
-
-		for (int i = 0; i < CB.size(); i++) {
-			if (CB.get(i).intersects(player.Left)) {
-				if (!CB.get(i).intersects(player.Bottom)) {
-					player.VY = 0;
-					player.X = CB.get(i).x + CB.get(i).width - 1;
-					player.isLeftColliding.add(true);
-					break;
-				}
-			} else {
-				player.isLeftColliding.add(false);
-			}
-		}
+	public void setX(float x) {
+		X = x;
 	}
 
-	public void setVar() {
-		try {
-			reader = new BufferedReader(new FileReader(System.getenv("APPDATA") + "\\.NuclearKittens\\res\\coords.txt"));
-			for (int i = 0; i <= lines; i++) {
-				String line = reader.readLine().trim();
-				abcd = line.split(" ");
-				a = Float.parseFloat(abcd[0]);
-				b = Float.parseFloat(abcd[1]);
-				c = Float.parseFloat(abcd[2]);
-				d = Float.parseFloat(abcd[3]);
-				rect = new Rectangle((int) a, (int) b, (int) c, (int) d);
-				CB.add(rect);
-			}
-			reader.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	public float getY() {
+		return Y;
 	}
 
-	public void count() {
-		try {
-			line = reader.readLine();
-			if (!line.equals("###")) {
-				lines++;
-			} else {
-				isDone = true;
-				setVar();
-			}
-		} catch (IOException ioe) {
-		} catch (NullPointerException npe) {
-		}
+	public void setY(float y) {
+		Y = y;
+	}
+	
+	public float getVY() {
+		return VY;
 	}
 
-	public void render(Graphics g) {
-		for (int box = 0; box < CB.size(); box++) {
-			g.drawShape(CB.get(box));
-		}
+	public void setVY(float vy) {
+		VY = vy;
+	}
+
+	public int getImageWidth() {
+		return imageWidth;
+	}
+
+	public void setImageWidth(int imageWidth) {
+		this.imageWidth = imageWidth;
+	}
+
+	public int getImageHeight() {
+		return imageHeight;
+	}
+
+	public void setImageHeight(int imageHeight) {
+		this.imageHeight = imageHeight;
 	}
 }

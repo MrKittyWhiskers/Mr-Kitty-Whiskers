@@ -3,19 +3,21 @@ package org.mkw.game;
 import java.awt.Color;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import org.nk.engine.Game;
-import org.nk.engine.Graphics;
+
+import org.mkw.engine.Game;
+import org.mkw.engine.GameContainer;
+import org.mkw.engine.Graphics;
 
 public class DevConsole extends Overlay {
 
 	public static OutputStream out = null;
-	static Game game;
 	static ArrayList<String> text = new ArrayList<>();
 	static int limit = 13;
+	Game game;
 
-	public DevConsole(Game state) {
-		super(false, state);
-		game = state;
+	public DevConsole(GameContainer gc, Game game) {
+		super(false, game, gc);
+		this.game = game;
 		setVisible(true);
 	}
 
@@ -29,7 +31,6 @@ public class DevConsole extends Overlay {
 	
 	@Override
 	public void render(Graphics g) {
-		System.out.println("test");
 		renderTransparentRectangle(g, 0, 0, game.gc.getWidth(), game.gc.getHeight() / 3, 0.70f, 0, 0, 0);
 		g.setColor(Color.WHITE);
 		g.drawString(game.debuginfo, 5, 10, g.currentFont());
